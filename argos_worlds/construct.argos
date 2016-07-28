@@ -1,0 +1,195 @@
+<?xml version="1.0"?>
+<argos-configuration>
+  <!-- ************************* -->
+  <!-- * General configuration * -->
+  <!-- ************************* -->
+  <framework>
+    <system threads="0"/>
+    <experiment length="0" ticks_per_second="10" random_seed="124"/>
+  </framework>
+
+  <!-- *************** -->
+  <!-- * Controllers * -->
+  <!-- *************** -->
+  <controllers>
+    <argos_ros_bot_controller id="argos_ros_bot" library="libargos_ros_bot.so">
+      <actuators>
+        <differential_steering implementation="default"/>
+        <!--<footbot_gripper implementation="default"/>-->
+        <!--<footbot_turret implementation="default"/>-->
+      </actuators>
+      <sensors>
+        <footbot_proximity implementation="default" show_rays="true"/>
+        <colored_blob_omnidirectional_camera implementation="rot_z_only" medium="leds" show_rays="true"/>
+      </sensors>
+      <params stopWithoutSubscriberCount="10" />
+    </argos_ros_bot_controller>
+  </controllers>
+
+  <!-- *********************** -->
+  <!-- * Arena configuration * -->
+  <!-- *********************** -->
+  <arena size="5, 5, 1" center="0,0,0.5">
+    <box id="wall_north" size="4,0.1,0.5" movable="false">
+      <body position="0,2,0" orientation="0,0,0"/>
+    </box>
+    <box id="wall_south" size="4,0.1,0.5" movable="false">
+      <body position="0,-2,0" orientation="0,0,0"/>
+    </box>
+    <box id="wall_east" size="0.1,4,0.5" movable="false">
+      <body position="2,0,0" orientation="0,0,0"/>
+    </box>
+    <box id="wall_west" size="0.1,4,0.5" movable="false">
+      <body position="-2,0,0" orientation="0,0,0"/>
+    </box>
+
+    <!--
+        The robot (add more later!).
+    -->
+    <distribute>
+      <position method="uniform" min="-0.25,-1,0" max="0.25,1,0"/>
+      <orientation method="constant" values="0,0,0"/>
+
+      <entity quantity="1" max_trials="100">
+
+        <foot-bot id="bot">
+          <controller config="argos_ros_bot"/>
+        </foot-bot>
+
+      </entity>
+    </distribute>
+
+    <!--
+	Two different types of pucks follow.  Both types are moveable cylinders with an LED
+	on top of each one.
+    -->
+
+    <!--
+        The pucks forming the guide wall (RED).  I couldn't get any of the distribute tags to
+	form an evenly-spaced line so the same cylinder code is repeated below, varying only
+	in y coordinate.
+    -->
+    <!--
+    <cylinder id="red_puck0" height="0.05" radius="0.05" movable="false">
+      <body position="-1,-1.0,0" orientation="0,0,0"/>
+      <leds medium="leds">
+        <led offset="0,0,0.06" anchor="origin" color="red" intensity="1.0"/>
+      </leds>
+	</cylinder>
+    <cylinder id="red_puck1" height="0.05" radius="0.05" movable="false">
+      <body position="-1,-0.8,0" orientation="0,0,0"/>
+      <leds medium="leds">
+        <led offset="0,0,0.06" anchor="origin" color="red" intensity="1.0"/>
+      </leds>
+	</cylinder>
+    <cylinder id="red_puck2" height="0.05" radius="0.05" movable="false">
+      <body position="-1,-0.6,0" orientation="0,0,0"/>
+      <leds medium="leds">
+        <led offset="0,0,0.06" anchor="origin" color="red" intensity="1.0"/>
+      </leds>
+	</cylinder>
+    <cylinder id="red_puck3" height="0.05" radius="0.05" movable="false">
+      <body position="-1,-0.4,0" orientation="0,0,0"/>
+      <leds medium="leds">
+        <led offset="0,0,0.06" anchor="origin" color="red" intensity="1.0"/>
+      </leds>
+	</cylinder>
+    <cylinder id="red_puck4" height="0.05" radius="0.05" movable="false">
+      <body position="-1,-0.2,0" orientation="0,0,0"/>
+      <leds medium="leds">
+        <led offset="0,0,0.06" anchor="origin" color="red" intensity="1.0"/>
+      </leds>
+	</cylinder>
+    <cylinder id="red_puck5" height="0.05" radius="0.05" movable="false">
+      <body position="-1,0,0" orientation="0,0,0"/>
+      <leds medium="leds">
+        <led offset="0,0,0.06" anchor="origin" color="red" intensity="1.0"/>
+      </leds>
+	</cylinder>
+    <cylinder id="red_puck6" height="0.05" radius="0.05" movable="false">
+      <body position="-1,0.2,0" orientation="0,0,0"/>
+      <leds medium="leds">
+        <led offset="0,0,0.06" anchor="origin" color="red" intensity="1.0"/>
+      </leds>
+	</cylinder>
+    <cylinder id="red_puck7" height="0.05" radius="0.05" movable="false">
+      <body position="-1,0.4,0" orientation="0,0,0"/>
+      <leds medium="leds">
+        <led offset="0,0,0.06" anchor="origin" color="red" intensity="1.0"/>
+      </leds>
+	</cylinder>
+    <cylinder id="red_puck8" height="0.05" radius="0.05" movable="false">
+      <body position="-1,0.6,0" orientation="0,0,0"/>
+      <leds medium="leds">
+        <led offset="0,0,0.06" anchor="origin" color="red" intensity="1.0"/>
+      </leds>
+	</cylinder>
+    <cylinder id="red_puck9" height="0.05" radius="0.05" movable="false">
+      <body position="-1,0.8,0" orientation="0,0,0"/>
+      <leds medium="leds">
+        <led offset="0,0,0.06" anchor="origin" color="red" intensity="1.0"/>
+      </leds>
+	</cylinder>
+    <cylinder id="red_puck10" height="0.05" radius="0.05" movable="false">
+      <body position="-1,1,0" orientation="0,0,0"/>
+      <leds medium="leds">
+        <led offset="0,0,0.06" anchor="origin" color="red" intensity="1.0"/>
+      </leds>
+	</cylinder>
+    -->
+
+    <!--
+        The pucks to be assembled into a line (GREEN). 
+    -->
+    <distribute>
+      <position method="uniform" min="-0.10,-1,0" max="0.10,1,0"/>
+      <orientation method="constant" values="0,0,0"/>
+
+      <entity quantity="10" max_trials="100">
+        <cylinder id="green_puck" height="0.10" radius="0.05" mass="0.1" movable="true">
+          <body position="0.05,0,0" orientation="0,0,0"/>
+          <leds medium="leds">
+            <led offset="0,0,0.06" anchor="origin" color="green" intensity="1.0"/>
+          </leds>
+        </cylinder>
+      </entity>
+    </distribute>
+
+    <!-- Another line of them -->
+    <distribute>
+      <position method="uniform" min="-1.10,-1,0" max="-0.90,1,0"/>
+      <orientation method="constant" values="0,0,0"/>
+
+      <entity quantity="10" max_trials="100">
+        <cylinder id="other_green_puck" height="0.05" radius="0.05" mass="0.1" movable="true">
+          <body position="0.05,0,0" orientation="0,0,0"/>
+          <leds medium="leds">
+            <led offset="0,0,0.06" anchor="origin" color="green" intensity="1.0"/>
+          </leds>
+        </cylinder>
+      </entity>
+    </distribute>
+
+  </arena>
+
+  <!-- ******************* -->
+  <!-- * Physics engines * -->
+  <!-- ******************* -->
+  <physics_engines>
+    <dynamics2d id="dyn2d"/>
+  </physics_engines>
+
+  <!-- ********* -->
+  <!-- * Media * -->
+  <!-- ********* -->
+  <media>
+    <led id="leds"/>
+  </media>
+
+  <!-- ****************** -->
+  <!-- * Visualization * -->
+  <!-- ****************** -->
+  <visualization>
+    <qt-opengl lua_editor="false"/>
+  </visualization>
+</argos-configuration>
