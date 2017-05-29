@@ -7,6 +7,7 @@ project(argos_bridge)
 find_package(catkin REQUIRED COMPONENTS
   std_msgs
   message_generation
+  roscpp
 )
 
 ## System dependencies are found with CMake's conventions
@@ -103,8 +104,8 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES argos_bridge
-  CATKIN_DEPENDS std_msgs
-  DEPENDS message_runtime
+  CATKIN_DEPENDS roscpp std_msgs
+  DEPENDS message_runtime 
 )
 
 ###########
