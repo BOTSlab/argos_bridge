@@ -60,12 +60,7 @@ Issues
   'catkin_make'.  This should only occur once.
 
 - If there are issues related to ros::console::initialized, check your ROS version
-and if the ROS_DISTRO env is set. The argos_bridge/ros_lib_links/libroscpp.so should
-normally point to libroscpp.so of your distro. To change this type:
-
-    ld -sf /opt/ros/YOUR_ROS/lib/libroscpp.so libroscpp.so
- 
-  Assuming you are in ros_lib_links folder.  
+and if the ROS_DISTRO env is set.   
 
 Author
 ------
