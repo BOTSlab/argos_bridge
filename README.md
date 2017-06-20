@@ -59,6 +59,8 @@ Issues
   Go ahead and do 'catkin_make' then uncomment the line and do another
   'catkin_make'.  This should only occur once.
 
+- If there are issues related to ros::console::initialized, check your ROS version
+and if the ROS_DISTRO env is set.   
 
 Author
 ------
