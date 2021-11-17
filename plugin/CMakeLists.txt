@@ -10,20 +10,21 @@ set(CMAKE_MACOSX_RPATH 0)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
 
 # Find the ARGoS package, make sure to save the ARGoS prefix
-find_package(PkgConfig)
-pkg_check_modules(ARGOS REQUIRED argos3_simulator)
-set(ARGOS_PREFIX ${ARGOS_PREFIX} CACHE INTERNAL "")
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ARGOS_PREFIX}/share/argos3/cmake)
-
+find_package(ARGoS REQUIRED)
+include_directories(${ARGOS_INCLUDE_DIRS})
+link_directories(${ARGOS_LIBRARY_DIR})
+link_libraries(${ARGOS_LDFLAGS})
+string(REPLACE "/lib/argos3" "" ARGOS_PREFIX "${ARGOS_LIBRARY_DIR}")
+set(CMAKE_INSTALL_PREFIX ${ARGOS_PREFIX} CACHE STRING "Install path prefix, prepended onto install directories." FORCE)
 # Check whether all the necessary libs have been installed to compile the
 # code that depends on Qt and OpenGL
-include(ARGoSCheckQTOpenGL)
+# include(ARGoSCheckQTOpenGL)
 
 # Find the GSL package
 find_package(GSL REQUIRED)
 
 # Find Lua
-find_package(Lua52 REQUIRED)
+find_package(Lua REQUIRED)
 
 # Set ARGoS include dir
 include_directories(${catkin_INCLUDE_DIRS} ${CMAKE_SOURCE_DIR} ${ARGOS_INCLUDE_DIRS} ${GSL_INCLUDE_DIR} ${LUA_INCLUDE_DIR})
