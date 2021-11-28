@@ -1,7 +1,7 @@
 ### START - Adapted from argos3-examples/CMakeLists.txt
 
 cmake_minimum_required(VERSION 2.8.12)
-project(argos3_examples)
+project(argos3_bridge)
 
 # Deactivate RPATH for MacOSX
 set(CMAKE_MACOSX_RPATH 0)
@@ -48,3 +48,4 @@ link_directories(${ARGOS_LIBRARY_DIRS})
 include_directories(${CMAKE_SOURCE_DIR}/controllers)
 
 add_subdirectory(argos_ros_bot)
+add_subdirectory(kheperaiv_ros)

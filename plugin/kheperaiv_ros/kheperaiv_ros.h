@@ -1,19 +1,22 @@
 /*
- * AUTHOR: Andrew Vardy <av@mun.ca>
+ * AUTHOR: Peter Nikopoulos <peter@nikopoulos.net>
  *
- * Connects an ARGoS robot with a particular configuration to ROS by publishing
- * sensor values and subscribing to a desired wheel speeds topic.
+ * Connects Kheperaiv IV robot to ROS
  *
  */
 
-#ifndef ARGOS_ROS_BOT_H
-#define ARGOS_ROS_BOT_H
+#ifndef KHEPERAIV_ROS_H
+#define KHEPERAIV_ROS_H
 
 #include <argos3/core/control_interface/ci_controller.h>
 #include <argos3/plugins/robots/generic/control_interface/ci_differential_steering_actuator.h>
-#include <argos3/plugins/robots/foot-bot/control_interface/ci_footbot_proximity_sensor.h>
-#include <argos3/plugins/robots/generic/control_interface/ci_colored_blob_omnidirectional_camera_sensor.h>
-//#include <argos3/plugins/robots/foot-bot/control_interface/ci_footbot_gripper_actuator.h>
+#include <argos3/plugins/robots/generic/control_interface/ci_differential_steering_sensor.h>
+#include <argos3/plugins/robots/generic/control_interface/ci_leds_actuator.h>  
+#include <argos3/plugins/robots/kheperaiv/control_interface/ci_kheperaiv_ground_sensor.h>
+#include <argos3/plugins/robots/kheperaiv/control_interface/ci_kheperaiv_proximity_sensor.h>
+#include <argos3/plugins/robots/kheperaiv/control_interface/ci_kheperaiv_light_sensor.h>
+#include <argos3/plugins/robots/kheperaiv/control_interface/ci_kheperaiv_ultrasound_sensor.h>
+#include <argos3/plugins/robots/kheperaiv/control_interface/ci_kheperaiv_lidar_sensor.h>
 
 #include <ros/ros.h>
 #include <string>
@@ -22,12 +25,12 @@
 
 using namespace argos;
 
-class CArgosRosBot : public CCI_Controller {
+class CKheperaIVRos : public CCI_Controller {
 
 public:
 
-  CArgosRosBot();
-  virtual ~CArgosRosBot() {}
+  CKheperaIVRos();
+  virtual ~CKheperaIVRos() {}
 
   /*
    * This function initializes the controller.
@@ -65,48 +68,27 @@ public:
    */
   void cmdVelCallback(const geometry_msgs::Twist& twist);
 
-  /*
-   * The callback method for getting the desired state of the gripper.
-   */
-//  void gripperCallback(const std_msgs::Bool& value);
-
 private:
-
+  /* Pointer to the differential steering actuator */                                                                                                                      
   CCI_DifferentialSteeringActuator* m_pcWheels;
-  CCI_FootBotProximitySensor* m_pcProximity;
-  CCI_ColoredBlobOmnidirectionalCameraSensor* m_pcOmniCam;
-//  CCI_FootBotGripperActuator* m_pcGripper;
-
-  // The following constant values were copied from the argos source tree from
-  // the file src/plugins/robots/foot-bot/simulator/footbot_entity.cpp
+  /* Pointer to the differential steering sensor */                                                                                                                        
+  CCI_DifferentialSteeringSensor* m_pcEncoder;                                                                                                                             
+  /* Pointer to the Khepera IV proximity sensor */                                                                                                                         
+  CCI_KheperaIVProximitySensor* m_pcProximity;
+  
   static constexpr Real HALF_BASELINE = 0.07f; // Half the distance between wheels
   static constexpr Real WHEEL_RADIUS = 0.029112741f;
 
-  /*
-   * The following variables are used as parameters for the
-   * algorithm. You can set their value in the <parameters> section
-   * of the XML configuration file, under the
-   * <controllers><argos_ros_bot_controller> section.
-   */
-
-  // The number of time steps from the time step of the last callback
-  // after which leftSpeed and rightSpeed will be set to zero.  Useful to
-  // shutdown the robot after the controlling code on the ROS side has quit.
-  int stopWithoutSubscriberCount;
-
-  // The number of time steps since the last callback.
-  int stepsSinceCallback;
-
+  /* Wheel speed */
+  Real m_fWheelVelocity;
+  /* Angle Tolerance range to go straight.
+   * set to [-alpha, alpha] */
+  CRange<CRadians> m_cGoStraightAngleRange;
+  
   // Most recent left and right wheel speeds, converted from the ROS twist
   // message.
   Real leftSpeed, rightSpeed;
-
-  // The state of the gripper.
-  //  bool gripping;
-
-  // Puck list publisher
-  ros::Publisher puckListPub;
-
+  
   // Proximity sensor publisher
   ros::Publisher proximityPub;
 
@@ -114,7 +96,7 @@ private:
   ros::Subscriber cmdVelSub;
 
   // Subscriber for gripper (Bool message) topic.
-  //  ros::Subscriber gripperSub;
+//  ros::Subscriber gripperSub;
 
 public:
   // We need only a single ROS node, although there are individual publishers
