@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<argos-configuration>
+  <!-- ************************* -->
+  <!-- * General configuration * -->
+  <!-- ************************* -->
+  <framework>
+    <system threads="0"/>
+    <experiment length="0" ticks_per_second="10" random_seed="124"/>
+  </framework>
+
+  <!-- *************** -->
+  <!-- * Controllers * -->
+  <!-- *************** -->
+  <controllers>
+    <kheperaiv_ros_controller id="kheperaiv_ros" library="libkheperaiv_ros.so">
+      <actuators>
+        <differential_steering implementation="default" />
+          <!-- <leds implementation="default" medium="leds" /> -->
+        <range_and_bearing implementation="default" />
+      </actuators>
+      <sensors>
+        <differential_steering implementation="default" />
+        <kheperaiv_proximity implementation="default" show_rays="false" />
+        <range_and_bearing implementation="medium"
+                                     medium="rab" />
+        <kheperaiv_lidar implementation="default"
+               show_rays="true"
+               noise_level="0.1"/>
+      </sensors>
+      <params alpha="7.5" delta="0.1" velocity="5" />
+    </kheperaiv_ros_controller>
+  </controllers>
+
+  <!-- *********************** -->
+  <!-- * Arena configuration * -->
+  <!-- *********************** -->
+  <arena size="5, 5, 1" center="0,0,0.5">
+    <box id="wall_north" size="4,0.1,0.5" movable="false">
+      <body position="0,2,0" orientation="0,90,0"/>
+    </box>
+    <box id="wall_south" size="4,0.1,0.5" movable="false">
+      <body position="0,-2,0" orientation="0,0,0"/>
+    </box>
+    <box id="wall_east" size="0.1,4,0.5" movable="false">
+      <body position="2,0,0" orientation="0,0,0"/>
+    </box>
+    <box id="wall_west" size="0.1,4,0.5" movable="false">
+      <body position="-2,0,0" orientation="0,0,0"/>
+    </box>
+
+    <!--
+        The robot (add more later!).
+    -->
+    <distribute>
+      <position method="uniform" min="-0.25,-1,0" max="0.25,1,0"/>
+      <orientation method="constant" values="0,0,0"/>
+
+      <entity quantity="3" max_trials="100">
+
+        <kheperaiv id="kheperaiv_ros">
+          <controller config="kheperaiv_ros"/>
+        </kheperaiv>
+
+      </entity>
+    </distribute>
+  </arena>
+
+  <!-- ******************* -->
+  <!-- * Physics engines * -->
+  <!-- ******************* -->
+  <physics_engines>
+    <dynamics2d id="dyn2d"/>
+  </physics_engines>
+
+  <!-- ********* -->
+  <!-- * Media * -->
+  <!-- ********* -->
+  <media>
+    <range_and_bearing id="rab" />
+    <led id="leds"/>
+  </media>
+
+  <!-- ****************** -->
+  <!-- * Visualization * -->
+  <!-- ****************** -->
+  <visualization>
+    <qt-opengl lua_editor="false">
+      <camera>
+        <placements>
+          <placement index="0" position="0,0,4.34" look_at="0,0,0" up="1,0,0" lens_focal_length="20" />
+        </placements>
+      </camera>
+    </qt-opengl>
+  </visualization>
+</argos-configuration>

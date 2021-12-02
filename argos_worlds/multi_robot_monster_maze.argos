@@ -1,0 +1,730 @@
+<?xml version="1.0"?>
+<argos-configuration>
+  <!-- ************************* -->
+  <!-- * General configuration * -->
+  <!-- ************************* -->
+  <framework>
+    <system threads="0"/>
+    <experiment length="0" ticks_per_second="10" random_seed="124"/>
+  </framework>
+
+  <!-- *************** -->
+  <!-- * Controllers * -->
+  <!-- *************** -->
+  <controllers>
+    <kheperaiv_ros_controller id="kheperaiv_ros" library="libkheperaiv_ros.so">
+      <actuators>
+        <differential_steering implementation="default" />
+          <!-- <leds implementation="default" medium="leds" /> -->
+        <range_and_bearing implementation="default" />
+      </actuators>
+      <sensors>
+        <differential_steering implementation="default" />
+        <kheperaiv_proximity implementation="default" show_rays="false" />
+        <range_and_bearing implementation="medium"
+                                     medium="rab" />
+        <kheperaiv_lidar implementation="default"
+               show_rays="true"
+               noise_level="0.1"/>
+      </sensors>
+      <params alpha="7.5" delta="0.1" velocity="5" />
+    </kheperaiv_ros_controller>
+  </controllers>
+
+  <!-- *********************** -->
+  <!-- * Arena configuration * -->
+  <!-- *********************** -->
+  <arena size="75, 35, 1" center="0,0,0.5">
+		<box id="Wall_0" size="4.25,0.15,2.5" movable="false">
+			<body position="-30.6957,11.7141,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_1" size="3.25,0.15,2.5" movable="false">
+			<body position="-28.6457,10.1641,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_100" size="2,0.15,2.5" movable="false">
+			<body position="-27.3415,-4.13462,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_104" size="1.11552,0.15,2.5" movable="false">
+			<body position="-25.9573,-3.98576,0" orientation="-162.0399129143335,0.0,0.0" />
+		</box>
+		<box id="Wall_106" size="10.25,0.15,2.5" movable="false">
+			<body position="-32.7457,3.56417,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_107" size="3.25,0.15,2.5" movable="false">
+			<body position="-31.1957,-1.48583,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_108" size="1.75,0.15,2.5" movable="false">
+			<body position="-29.6457,-0.685829,0" orientation="90.00021045914971,-0.0,0.0" />
+		</box>
+		<box id="Wall_11" size="12.25,0.15,2.5" movable="false">
+			<body position="-19.9957,11.7141,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_111" size="3.25,0.15,2.5" movable="false">
+			<body position="-31.2093,1.02753,0" orientation="179.9998479605043,-0.0,0.0" />
+		</box>
+		<box id="Wall_113" size="3.25,0.15,2.5" movable="false">
+			<body position="-29.6419,3.53644,0" orientation="90.00021045914971,-0.0,0.0" />
+		</box>
+		<box id="Wall_115" size="3.25,0.15,2.5" movable="false">
+			<body position="-31.2476,3.55557,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_117" size="3.25,0.15,2.5" movable="false">
+			<body position="-31.2302,6.03131,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_119" size="1.75,0.15,2.5" movable="false">
+			<body position="-29.6457,7.81417,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_12" size="3.25,0.15,2.5" movable="false">
+			<body position="-13.9457,10.1641,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_121" size="2.5,0.15,2.5" movable="false">
+			<body position="-32.7457,-2.66083,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_122" size="3.25,0.15,2.5" movable="false">
+			<body position="-31.1957,-3.83583,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_123" size="1.75,0.15,2.5" movable="false">
+			<body position="-29.6457,-3.03583,0" orientation="90.00021045914971,-0.0,0.0" />
+		</box>
+		<box id="Wall_125" size="2,0.15,2.5" movable="false">
+			<body position="-32.7457,-4.76083,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_126" size="3,0.15,2.5" movable="false">
+			<body position="-31.3207,-5.68583,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_127" size="0.5,0.15,2.5" movable="false">
+			<body position="-29.8957,-5.51083,0" orientation="90.00021045914971,-0.0,0.0" />
+		</box>
+		<box id="Wall_129" size="6.25,0.15,2.5" movable="false">
+			<body position="-32.7457,-8.73583,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_130" size="1,0.15,2.5" movable="false">
+			<body position="-32.3207,-11.7859,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_133" size="0.75,0.15,2.5" movable="false">
+			<body position="-30.2654,-11.7934,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_134" size="5.25,0.15,2.5" movable="false">
+			<body position="-29.9654,-9.24332,0" orientation="90.00021045914971,-0.0,0.0" />
+		</box>
+		<box id="Wall_136" size="4.25,0.15,2.5" movable="false">
+			<body position="-27.9154,-11.7934,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_137" size="2.25,0.15,2.5" movable="false">
+			<body position="-25.8654,-10.7434,0" orientation="90.00021045914971,-0.0,0.0" />
+		</box>
+		<box id="Wall_138" size="15.5,0.15,2.5" movable="false">
+			<body position="-18.1904,-9.69332,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_14" size="3.25,0.15,2.5" movable="false">
+			<body position="-23.5854,10.195,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_140" size="1.75,0.15,2.5" movable="false">
+			<body position="-29.1589,-7.09351,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_142" size="3.25,0.15,2.5" movable="false">
+			<body position="-27.2907,-8.05225,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_143" size="1.5782,0.15,2.5" movable="false">
+			<body position="-26.578,-9.64778,0" orientation="-3.6559863949502702,0.0,0.0" />
+		</box>
+		<box id="Wall_145" size="1.75,0.15,2.5" movable="false">
+			<body position="-26.4907,-6.50225,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_147" size="2.25,0.15,2.5" movable="false">
+			<body position="-24.774,-7.55225,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_148" size="0.75,0.15,2.5" movable="false">
+			<body position="-24.474,-8.60225,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_149" size="1.25,0.15,2.5" movable="false">
+			<body position="-24.174,-9.15225,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_151" size="3.5,0.15,2.5" movable="false">
+			<body position="-22.2197,-6.51741,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_153" size="3.25,0.15,2.5" movable="false">
+			<body position="-22.3938,-8.08257,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_155" size="3.25,0.15,2.5" movable="false">
+			<body position="-19.7407,-8.03709,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_157" size="2.75,0.15,2.5" movable="false">
+			<body position="-17.4704,-6.53257,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_159" size="2.5,0.15,2.5" movable="false">
+			<body position="-17.4059,-7.72273,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_16" size="3.25,0.15,2.5" movable="false">
+			<body position="-21.2103,10.169,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_161" size="3.25,0.15,2.5" movable="false">
+			<body position="-15.1167,-8.11289,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_163" size="3,0.15,2.5" movable="false">
+			<body position="-12.7062,-6.50225,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_165" size="3.25,0.15,2.5" movable="false">
+			<body position="-12.7667,-8.05225,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_167" size="1.75,0.15,2.5" movable="false">
+			<body position="-8.64653,-6.54773,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_169" size="3.25,0.15,2.5" movable="false">
+			<body position="-7.84653,-8.09773,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_171" size="5.75,0.15,2.5" movable="false">
+			<body position="-7.71533,-9.69332,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_173" size="3.25,0.15,2.5" movable="false">
+			<body position="-10.5153,-8.14332,0" orientation="90.00021045914971,-0.0,0.0" />
+		</box>
+		<box id="Wall_178" size="2.25,0.15,2.5" movable="false">
+			<body position="-7.83692,-4.43421,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_179" size="3,0.15,2.5" movable="false">
+			<body position="-6.41192,-5.48421,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_18" size="3.25,0.15,2.5" movable="false">
+			<body position="-18.8006,10.1777,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_181" size="3,0.15,2.5" movable="false">
+			<body position="-6.40262,0.486309,0" orientation="179.9998479605043,-0.0,0.0" />
+		</box>
+		<box id="Wall_182" size="2.25,0.15,2.5" movable="false">
+			<body position="-7.82762,-0.563693,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_184" size="3,0.15,2.5" movable="false">
+			<body position="-6.41192,-2.39043,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_186" size="1.75,0.15,2.5" movable="false">
+			<body position="-19.967,0.780699,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_188" size="5.75,0.15,2.5" movable="false">
+			<body position="-22.708,-0.941798,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_190" size="1.25,0.15,2.5" movable="false">
+			<body position="-28.2665,-4.68462,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_191" size="5.5,0.15,2.5" movable="false">
+			<body position="-25.5915,-5.23462,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_195" size="4.5,0.15,2.5" movable="false">
+			<body position="-22.0247,-3.06947,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_198" size="2.75,0.15,2.5" movable="false">
+			<body position="-20.1595,-3.20271,0" orientation="90.00021045914971,-0.0,0.0" />
+		</box>
+		<box id="Wall_20" size="3.25,0.15,2.5" movable="false">
+			<body position="-16.3821,10.169,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_200" size="2,0.15,2.5" movable="false">
+			<body position="-21.0997,-5.24447,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_201" size="0.891917,0.15,2.5" movable="false">
+			<body position="-20.1671,-4.87359,0" orientation="88.8290847259023,-0.0,0.0" />
+		</box>
+		<box id="Wall_203" size="7.5,0.15,2.5" movable="false">
+			<body position="-18.7629,-0.760121,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_205" size="9.75,0.15,2.5" movable="false">
+			<body position="-13.9364,-5.30511,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_207" size="8,0.15,2.5" movable="false">
+			<body position="-9.08453,-0.532831,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_209" size="6,0.15,2.5" movable="false">
+			<body position="-12.0095,-2.8126,0" orientation="179.9998479605043,-0.0,0.0" />
+		</box>
+		<box id="Wall_211" size="5.5,0.15,2.5" movable="false">
+			<body position="-12.2715,0.740429,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_213" size="4,0.15,2.5" movable="false">
+			<body position="-16.6826,1.53052,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_214" size="4.5,0.15,2.5" movable="false">
+			<body position="-14.5076,-0.394476,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_216" size="4,0.15,2.5" movable="false">
+			<body position="-14.9318,-2.30083,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_218" size="1.25,0.15,2.5" movable="false">
+			<body position="-18.2129,2.91488,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_22" size="1.75,0.15,2.5" movable="false">
+			<body position="-25.2457,8.61417,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_220" size="2.25,0.15,2.5" movable="false">
+			<body position="-4.98692,-6.53421,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_221" size="5.25,0.15,2.5" movable="false">
+			<body position="-2.43692,-7.58421,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_222" size="2.5,0.15,2.5" movable="false">
+			<body position="0.11308,-6.40921,0" orientation="90.00021045914971,-0.0,0.0" />
+		</box>
+		<box id="Wall_223" size="0.75,0.15,2.5" movable="false">
+			<body position="-0.18692,-5.23421,0" orientation="179.9998479605043,-0.0,0.0" />
+		</box>
+		<box id="Wall_225" size="6.12052,0.15,2.5" movable="false">
+			<body position="-4.98227,-2.49895,0" orientation="-90.08901891739498,0.0,0.0" />
+		</box>
+		<box id="Wall_227" size="13,0.15,2.5" movable="false">
+			<body position="1.44424,5.44844,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_229" size="0.75,0.15,2.5" movable="false">
+			<body position="7.86924,5.74844,0" orientation="90.00021045914971,-0.0,0.0" />
+		</box>
+		<box id="Wall_230" size="14.25,0.15,2.5" movable="false">
+			<body position="14.9192,6.04844,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_231" size="2.75,0.15,2.5" movable="false">
+			<body position="21.9692,4.74844,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_232" size="3,0.15,2.5" movable="false">
+			<body position="20.5442,3.44844,0" orientation="179.9998479605043,-0.0,0.0" />
+		</box>
+		<box id="Wall_234" size="2.75,0.15,2.5" movable="false">
+			<body position="18.1643,4.75706,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_236" size="2.75,0.15,2.5" movable="false">
+			<body position="15.8686,4.74547,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_238" size="2.75,0.15,2.5" movable="false">
+			<body position="13.3063,4.78025,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_24" size="1.65843,0.15,2.5" movable="false">
+			<body position="-21.9644,8.63047,0" orientation="-0.8661975946787785,0.0,0.0" />
+		</box>
+		<box id="Wall_240" size="2.75,0.15,2.5" movable="false">
+			<body position="10.5237,4.80344,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_242" size="2.25,0.15,2.5" movable="false">
+			<body position="7.86924,4.39844,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_243" size="2,0.15,2.5" movable="false">
+			<body position="8.79424,3.34844,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_245" size="2,0.15,2.5" movable="false">
+			<body position="12.3813,3.48025,0" orientation="179.9998479605043,-0.0,0.0" />
+		</box>
+		<box id="Wall_247" size="1.75,0.15,2.5" movable="false">
+			<body position="15.0686,3.44547,0" orientation="179.9998479605043,-0.0,0.0" />
+		</box>
+		<box id="Wall_249" size="1.5,0.15,2.5" movable="false">
+			<body position="16.5436,3.44547,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_251" size="4.75,0.15,2.5" movable="false">
+			<body position="4.29032,2.08018,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_252" size="1,0.15,2.5" movable="false">
+			<body position="6.59032,1.65518,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_254" size="6.75,0.15,2.5" movable="false">
+			<body position="1.99032,-1.21982,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_255" size="5,0.15,2.5" movable="false">
+			<body position="4.41532,-4.51982,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_256" size="0.75,0.15,2.5" movable="false">
+			<body position="6.84032,-4.21982,0" orientation="90.00021045914971,-0.0,0.0" />
+		</box>
+		<box id="Wall_258" size="5.25,0.15,2.5" movable="false">
+			<body position="7.74034,-1.31915,0" orientation="90.00021045914971,-0.0,0.0" />
+		</box>
+		<box id="Wall_26" size="1.75,0.15,2.5" movable="false">
+			<body position="-20.4103,8.61906,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_261" size="1,0.15,2.5" movable="false">
+			<body position="8.16534,1.23085,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_263" size="1,0.15,2.5" movable="false">
+			<body position="8.16534,-3.86915,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_265" size="0.75,0.15,2.5" movable="false">
+			<body position="9.62634,-4.12315,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_267" size="5,0.15,2.5" movable="false">
+			<body position="12.0513,-4.42315,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_268" size="6.5,0.15,2.5" movable="false">
+			<body position="14.4763,-1.24815,0" orientation="90.00021045914971,-0.0,0.0" />
+		</box>
+		<box id="Wall_269" size="5,0.15,2.5" movable="false">
+			<body position="12.0513,1.92685,0" orientation="179.9998479605043,-0.0,0.0" />
+		</box>
+		<box id="Wall_270" size="0.75,0.15,2.5" movable="false">
+			<body position="9.62634,1.62685,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_272" size="1,0.15,2.5" movable="false">
+			<body position="-4.54727,-9.48082,0" orientation="30.000012857270395,-0.0,0.0" />
+		</box>
+		<box id="Wall_273" size="5.75,0.15,2.5" movable="false">
+			<body position="-1.37921,-9.26832,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_275" size="3.5,0.15,2.5" movable="false">
+			<body position="1.42079,-7.59332,0" orientation="90.00021045914971,-0.0,0.0" />
+		</box>
+		<box id="Wall_277" size="2,0.15,2.5" movable="false">
+			<body position="3.35859,-5.93867,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_279" size="3.5,0.15,2.5" movable="false">
+			<body position="4.28359,-7.61367,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_28" size="1.5,0.15,2.5" movable="false">
+			<body position="-17.0571,8.61906,0" orientation="179.9998479605043,-0.0,0.0" />
+		</box>
+		<box id="Wall_280" size="3.01287,0.15,2.5" movable="false">
+			<body position="2.85219,-9.27849,0" orientation="179.5930479259614,-0.0,0.0" />
+		</box>
+		<box id="Wall_282" size="7,0.15,2.5" movable="false">
+			<body position="8.55944,-5.95659,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_283" size="2.5,0.15,2.5" movable="false">
+			<body position="11.9844,-7.13159,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_285" size="0.75,0.15,2.5" movable="false">
+			<body position="9.72574,-7.8334,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_286" size="2.41533,0.15,2.5" movable="false">
+			<body position="10.855,-8.22,0" orientation="-4.384674118797651,0.0,0.0" />
+		</box>
+		<box id="Wall_288" size="5.75,0.15,2.5" movable="false">
+			<body position="7.08354,-9.28867,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_290" size="4,0.15,2.5" movable="false">
+			<body position="7.96404,-11.2234,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_291" size="7,0.15,2.5" movable="false">
+			<body position="11.389,-13.1484,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_292" size="2.75,0.15,2.5" movable="false">
+			<body position="14.814,-11.8484,0" orientation="90.00021045914971,-0.0,0.0" />
+		</box>
+		<box id="Wall_294" size="2,0.15,2.5" movable="false">
+			<body position="8.91564,-11.6051,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_296" size="1.5,0.15,2.5" movable="false">
+			<body position="9.88354,-9.96367,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_298" size="1.25,0.15,2.5" movable="false">
+			<body position="11.3006,-9.23172,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_3" size="3.25,0.15,2.5" movable="false">
+			<body position="-32.7457,10.1641,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_30" size="1.5,0.15,2.5" movable="false">
+			<body position="-15.7071,8.61906,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_300" size="0.5,0.15,2.5" movable="false">
+			<body position="11.8506,-9.40672,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_302" size="5,0.15,2.5" movable="false">
+			<body position="15.309,-9.55172,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_304" size="4.25,0.15,2.5" movable="false">
+			<body position="16.864,-13.1484,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_305" size="3.75,0.15,2.5" movable="false">
+			<body position="18.914,-11.3484,0" orientation="90.00021045914971,-0.0,0.0" />
+		</box>
+		<box id="Wall_306" size="1.75,0.15,2.5" movable="false">
+			<body position="19.714,-9.54839,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_308" size="3.75,0.15,2.5" movable="false">
+			<body position="20.714,-13.1484,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_309" size="3.75,0.15,2.5" movable="false">
+			<body position="22.514,-11.3484,0" orientation="90.00021045914971,-0.0,0.0" />
+		</box>
+		<box id="Wall_310" size="1.25,0.15,2.5" movable="false">
+			<body position="21.964,-9.54839,0" orientation="179.9998479605043,-0.0,0.0" />
+		</box>
+		<box id="Wall_312" size="4.25,0.15,2.5" movable="false">
+			<body position="24.564,-13.1484,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_313" size="3.75,0.15,2.5" movable="false">
+			<body position="26.614,-11.3484,0" orientation="90.00021045914971,-0.0,0.0" />
+		</box>
+		<box id="Wall_314" size="3.5,0.15,2.5" movable="false">
+			<body position="24.939,-9.54839,0" orientation="179.9998479605043,-0.0,0.0" />
+		</box>
+		<box id="Wall_316" size="4.25,0.15,2.5" movable="false">
+			<body position="26.614,-7.49839,0" orientation="90.00021045914971,-0.0,0.0" />
+		</box>
+		<box id="Wall_317" size="3.25,0.15,2.5" movable="false">
+			<body position="25.064,-5.44839,0" orientation="179.9998479605043,-0.0,0.0" />
+		</box>
+		<box id="Wall_318" size="3.25,0.15,2.5" movable="false">
+			<body position="23.514,-6.99839,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_320" size="2.25,0.15,2.5" movable="false">
+			<body position="13.1567,-6.98169,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_322" size="2.25,0.15,2.5" movable="false">
+			<body position="14.2067,-5.93169,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_324" size="2.25,0.15,2.5" movable="false">
+			<body position="15.2567,-6.98169,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_325" size="1.25,0.15,2.5" movable="false">
+			<body position="14.7067,-8.03169,0" orientation="179.9998479605043,-0.0,0.0" />
+		</box>
+		<box id="Wall_327" size="2.25,0.15,2.5" movable="false">
+			<body position="16.2879,-7.18954,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_328" size="1.5,0.15,2.5" movable="false">
+			<body position="17.3379,-6.51454,0" orientation="90.00021045914971,-0.0,0.0" />
+		</box>
+		<box id="Wall_33" size="2.5,0.15,2.5" movable="false">
+			<body position="-12.7707,11.7141,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_330" size="2.75,0.15,2.5" movable="false">
+			<body position="18.6379,-5.83954,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_331" size="2.5,0.15,2.5" movable="false">
+			<body position="19.9379,-7.01454,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_333" size="1,0.15,2.5" movable="false">
+			<body position="17.3379,-7.61454,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_334" size="2,0.15,2.5" movable="false">
+			<body position="18.2629,-8.03954,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_336" size="1.5,0.15,2.5" movable="false">
+			<body position="21.7219,-5.89357,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_337" size="2.5,0.15,2.5" movable="false">
+			<body position="22.3969,-7.06857,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_338" size="2.60961,0.15,2.5" movable="false">
+			<body position="21.1674,-8.21655,0" orientation="178.741632642397,-0.0,0.0" />
+		</box>
+		<box id="Wall_34" size="3.25,0.15,2.5" movable="false">
+			<body position="-11.5957,10.1641,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_340" size="6.5,0.15,2.5" movable="false">
+			<body position="17.2793,-1.25924,0" orientation="90.00021045914971,-0.0,0.0" />
+		</box>
+		<box id="Wall_342" size="2.25,0.15,2.5" movable="false">
+			<body position="20.0812,0.864339,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_344" size="2.75,0.15,2.5" movable="false">
+			<body position="15.8484,-1.47276,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_346" size="2.75,0.15,2.5" movable="false">
+			<body position="18.6148,-1.11808,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_348" size="2,0.15,2.5" movable="false">
+			<body position="15.4013,-4.42315,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_35" size="1.5,0.15,2.5" movable="false">
+			<body position="-12.2707,8.61417,0" orientation="179.9998479605043,-0.0,0.0" />
+		</box>
+		<box id="Wall_350" size="3,0.15,2.5" movable="false">
+			<body position="18.7043,-4.43424,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_351" size="2.5,0.15,2.5" movable="false">
+			<body position="20.1293,-3.25924,0" orientation="90.00021045914971,-0.0,0.0" />
+		</box>
+		<box id="Wall_353" size="4.75,0.15,2.5" movable="false">
+			<body position="17.8237,2.03847,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_355" size="4.25,0.15,2.5" movable="false">
+			<body position="21.3104,-2.33749,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_356" size="2.75,0.15,2.5" movable="false">
+			<body position="22.6104,-4.38749,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_357" size="5,0.15,2.5" movable="false">
+			<body position="23.9104,-1.96249,0" orientation="90.00021045914971,-0.0,0.0" />
+		</box>
+		<box id="Wall_358" size="3,0.15,2.5" movable="false">
+			<body position="25.3354,0.462509,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_362" size="6.06271,0.15,2.5" movable="false">
+			<body position="26.6872,-2.49294,0" orientation="88.5815669584058,-0.0,0.0" />
+		</box>
+		<box id="Wall_364" size="2.75,0.15,2.5" movable="false">
+			<body position="21.9692,2.14844,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_365" size="2.12915,0.15,2.5" movable="false">
+			<body position="22.9398,0.655469,0" orientation="-11.244525912560459,0.0,0.0" />
+		</box>
+		<box id="Wall_37" size="6.75,0.15,2.5" movable="false">
+			<body position="-8.29567,11.7141,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_38" size="3.25,0.15,2.5" movable="false">
+			<body position="-4.99567,10.1641,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_39" size="3.25,0.15,2.5" movable="false">
+			<body position="-6.54567,8.61417,0" orientation="179.9998479605043,-0.0,0.0" />
+		</box>
+		<box id="Wall_4" size="3.25,0.15,2.5" movable="false">
+			<body position="-31.1957,8.61417,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_41" size="1.5,0.15,2.5" movable="false">
+			<body position="-10.9207,8.61417,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_43" size="3.25,0.15,2.5" movable="false">
+			<body position="-9.18753,10.1777,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_46" size="1.75,0.15,2.5" movable="false">
+			<body position="-7.73127,7.8332,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_48" size="2.75,0.15,2.5" movable="false">
+			<body position="-4.99567,7.31417,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_49" size="3,0.15,2.5" movable="false">
+			<body position="-6.42067,6.01417,0" orientation="179.9998479605043,-0.0,0.0" />
+		</box>
+		<box id="Wall_51" size="2.5,0.15,2.5" movable="false">
+			<body position="-4.99567,4.83917,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_52" size="3,0.15,2.5" movable="false">
+			<body position="-6.42067,3.66417,0" orientation="179.9998479605043,-0.0,0.0" />
+		</box>
+		<box id="Wall_53" size="1.75,0.15,2.5" movable="false">
+			<body position="-7.84567,4.46417,0" orientation="90.00021045914971,-0.0,0.0" />
+		</box>
+		<box id="Wall_55" size="1.5,0.15,2.5" movable="false">
+			<body position="-4.99567,2.98917,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_56" size="0.75,0.15,2.5" movable="false">
+			<body position="-5.29567,2.31417,0" orientation="179.9998479605043,-0.0,0.0" />
+		</box>
+		<box id="Wall_58" size="1.5,0.15,2.5" movable="false">
+			<body position="-7.84567,2.98917,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_59" size="1,0.15,2.5" movable="false">
+			<body position="-7.42067,2.31417,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_6" size="2.75,0.15,2.5" movable="false">
+			<body position="-27.3457,11.7141,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_61" size="3,0.15,2.5" movable="false">
+			<body position="-18.837,5.8412,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_62" size="9.75,0.15,2.5" movable="false">
+			<body position="-14.037,4.4162,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_63" size="3,0.15,2.5" movable="false">
+			<body position="-9.23698,5.8412,0" orientation="90.00021045914971,-0.0,0.0" />
+		</box>
+		<box id="Wall_64" size="2,0.15,2.5" movable="false">
+			<body position="-10.162,7.2662,0" orientation="179.9998479605043,-0.0,0.0" />
+		</box>
+		<box id="Wall_66" size="2.5,0.15,2.5" movable="false">
+			<body position="-13.383,7.2662,0" orientation="179.9998479605043,-0.0,0.0" />
+		</box>
+		<box id="Wall_68" size="2.5,0.15,2.5" movable="false">
+			<body position="-16.618,7.29271,0" orientation="179.9998479605043,-0.0,0.0" />
+		</box>
+		<box id="Wall_7" size="3.25,0.15,2.5" movable="false">
+			<body position="-26.0457,10.1641,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_70" size="3,0.15,2.5" movable="false">
+			<body position="-15.443,5.86771,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_72" size="3,0.15,2.5" movable="false">
+			<body position="-12.208,5.8412,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_74" size="3.25,0.15,2.5" movable="false">
+			<body position="-26.6328,7.29209,0" orientation="179.9998479605043,-0.0,0.0" />
+		</box>
+		<box id="Wall_75" size="2.75,0.15,2.5" movable="false">
+			<body position="-28.1828,5.99209,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_76" size="8.25,0.15,2.5" movable="false">
+			<body position="-24.1328,4.69209,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_77" size="2.75,0.15,2.5" movable="false">
+			<body position="-20.0828,5.99209,0" orientation="90.00021045914971,-0.0,0.0" />
+		</box>
+		<box id="Wall_78" size="3.25,0.15,2.5" movable="false">
+			<body position="-21.6328,7.29209,0" orientation="179.9998479605043,-0.0,0.0" />
+		</box>
+		<box id="Wall_8" size="1.5,0.15,2.5" movable="false">
+			<body position="-26.7207,8.61417,0" orientation="179.9998479605043,-0.0,0.0" />
+		</box>
+		<box id="Wall_80" size="2.75,0.15,2.5" movable="false">
+			<body position="-24.1204,5.97891,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_82" size="3,0.15,2.5" movable="false">
+			<body position="-28.1828,3.26709,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_84" size="3.25,0.15,2.5" movable="false">
+			<body position="-25.567,3.1307,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_85" size="5.75,0.15,2.5" movable="false">
+			<body position="-22.767,1.5807,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_86" size="2,0.15,2.5" movable="false">
+			<body position="-19.967,2.5057,0" orientation="90.00021045914971,-0.0,0.0" />
+		</box>
+		<box id="Wall_88" size="3.25,0.15,2.5" movable="false">
+			<body position="-26.7004,0.784409,0" orientation="0.0,-0.0,0.0" />
+		</box>
+		<box id="Wall_90" size="1,0.15,2.5" movable="false">
+			<body position="-25.1504,1.20941,0" orientation="90.00021045914971,-0.0,0.0" />
+		</box>
+		<box id="Wall_92" size="4.75,0.15,2.5" movable="false">
+			<body position="-25.498,-1.5369,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_94" size="3,0.15,2.5" movable="false">
+			<body position="-26.8967,-1.58351,0" orientation="179.9998479605043,-0.0,0.0" />
+		</box>
+		<box id="Wall_95" size="1.5,0.15,2.5" movable="false">
+			<body position="-28.3217,-0.90851,0" orientation="90.00021045914971,-0.0,0.0" />
+		</box>
+		<box id="Wall_97" size="1.25,0.15,2.5" movable="false">
+			<body position="-28.3217,-2.13351,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+		<box id="Wall_99" size="0.75,0.15,2.5" movable="false">
+			<body position="-28.2665,-3.83462,0" orientation="-90.00021045914971,0.0,0.0" />
+		</box>
+    <!--
+        The robot (add more later!).
+    -->
+    <distribute>
+      <position method="uniform" min="-0.25,-1,0" max="0.25,1,0"/>
+      <orientation method="constant" values="0,0,0"/>
+
+      <entity quantity="3" max_trials="100">
+
+        <kheperaiv id="kheperaiv_ros">
+          <controller config="kheperaiv_ros"/>
+        </kheperaiv>
+
+      </entity>
+    </distribute>
+  </arena>
+
+  <!-- ******************* -->
+  <!-- * Physics engines * -->
+  <!-- ******************* -->
+  <physics_engines>
+    <dynamics2d id="dyn2d"/>
+  </physics_engines>
+
+  <!-- ********* -->
+  <!-- * Media * -->
+  <!-- ********* -->
+  <media>
+    <range_and_bearing id="rab" />
+    <led id="leds"/>
+  </media>
+
+  <!-- ****************** -->
+  <!-- * Visualization * -->
+  <!-- ****************** -->
+  <visualization>
+    <qt-opengl lua_editor="false">
+      <camera>
+        <placements>
+          <placement index="0" position="0,0,100.34" look_at="0,0,0" up="1,0,0" lens_focal_length="100" />
+        </placements>
+      </camera>
+    </qt-opengl>
+  </visualization>
+</argos-configuration>

@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+<argos-configuration>
+  <!-- ************************* -->
+  <!-- * General configuration * -->
+  <!-- ************************* -->
+  <framework>
+    <system threads="0"/>
+    <experiment length="0" ticks_per_second="10" random_seed="124"/>
+  </framework>
+
+  <!-- *************** -->
+  <!-- * Controllers * -->
+  <!-- *************** -->
+  <controllers>
+    <kheperaiv_ros_controller id="kheperaiv_ros" library="libkheperaiv_ros.so">
+      <actuators>
+        <differential_steering implementation="default" />
+          <!-- <leds implementation="default" medium="leds" /> -->
+        <range_and_bearing implementation="default" />
+      </actuators>
+      <sensors>
+        <differential_steering implementation="default" />
+        <kheperaiv_proximity implementation="default" show_rays="false" />
+        <range_and_bearing implementation="medium"
+                                     medium="rab" />
+        <kheperaiv_lidar implementation="default"
+               show_rays="true"
+               noise_level="0.1"/>
+      </sensors>
+      <params alpha="7.5" delta="0.1" velocity="5" />
+    </kheperaiv_ros_controller>
+  </controllers>
+
+  <!-- *********************** -->
+  <!-- * Arena configuration * -->
+  <!-- *********************** -->
+  <arena size="23, 35, 1" center="0,0,0.0">
+		<box id="Wall_0" size="5.5,0.15,2.5" movable="false">
+			<body position="5.23699,2.86346,0" orientation="0.04583662361046586,-0.0,0.0" />
+		</box>
+		<box id="Wall_1" size="10.25,0.15,2.5" movable="false">
+			<body position="7.91601,-2.1844,0" orientation="-89.95437383553924,0.0,0.0" />
+		</box>
+		<box id="Wall_11" size="5.5,0.15,2.5" movable="false">
+			<body position="5.23214,-0.802082,0" orientation="-179.95458429468897,0.0,0.0" />
+		</box>
+		<box id="Wall_13" size="2.75,0.15,2.5" movable="false">
+			<body position="5.25107,-5.75671,0" orientation="-89.95437383553924,0.0,0.0" />
+		</box>
+		<box id="Wall_14" size="2,0.15,2.5" movable="false">
+			<body position="4.3271,-7.05744,0" orientation="-179.95458429468897,0.0,0.0" />
+		</box>
+		<box id="Wall_15" size="2.75,0.15,2.5" movable="false">
+			<body position="3.40107,-5.75818,0" orientation="90.04547412496505,-0.0,0.0" />
+		</box>
+		<box id="Wall_16" size="2,0.15,2.5" movable="false">
+			<body position="4.32503,-4.45745,0" orientation="0.04583662361046586,-0.0,0.0" />
+		</box>
+		<box id="Wall_18" size="1,0.15,2.5" movable="false">
+			<body position="7.62746,-9.01155,0" orientation="-179.95458429468897,0.0,0.0" />
+		</box>
+		<box id="Wall_19" size="3.75,0.15,2.5" movable="false">
+			<body position="7.20389,-10.8119,0" orientation="-89.95437383553924,0.0,0.0" />
+		</box>
+		<box id="Wall_2" size="1,0.15,2.5" movable="false">
+			<body position="7.49503,-7.23474,0" orientation="-179.95458429468897,0.0,0.0" />
+		</box>
+		<box id="Wall_20" size="1,0.15,2.5" movable="false">
+			<body position="7.63033,-12.6115,0" orientation="0.04583662361046586,-0.0,0.0" />
+		</box>
+		<box id="Wall_21" size="3.75,0.15,2.5" movable="false">
+			<body position="8.05389,-10.8112,0" orientation="90.04547412496505,-0.0,0.0" />
+		</box>
+		<box id="Wall_23" size="4.5,0.15,2.5" movable="false">
+			<body position="3.1249,-8.992,0" orientation="-179.95458429468897,0.0,0.0" />
+		</box>
+		<box id="Wall_3" size="3,0.15,2.5" movable="false">
+			<body position="7.0689,-5.81008,0" orientation="90.04547412496505,-0.0,0.0" />
+		</box>
+		<box id="Wall_33" size="4.54626,0.15,2.5" movable="false">
+			<body position="0.940267,3.10813,0" orientation="90.04547412496505,-0.0,0.0" />
+		</box>
+		<box id="Wall_34" size="8.75,0.15,2.5" movable="false">
+			<body position="5.23851,5.30968,0" orientation="0.04583662361046586,-0.0,0.0" />
+		</box>
+		<box id="Wall_35" size="20.5,0.15,2.5" movable="false">
+			<body position="9.54662,-4.86189,0" orientation="-89.95437383553924,0.0,0.0" />
+		</box>
+		<box id="Wall_36" size="4.5,0.15,2.5" movable="false">
+			<body position="7.37972,-15.0386,0" orientation="-179.95458429468897,0.0,0.0" />
+		</box>
+		<box id="Wall_38" size="6.25,0.15,2.5" movable="false">
+			<body position="5.30233,-12.0403,0" orientation="-89.95437383553924,0.0,0.0" />
+		</box>
+		<box id="Wall_40" size="2,0.15,2.5" movable="false">
+			<body position="2.56273,1.93633,0" orientation="-89.95437383553924,0.0,0.0" />
+		</box>
+		<box id="Wall_41" size="3.75,0.15,2.5" movable="false">
+			<body position="4.36346,1.01277,0" orientation="0.04583662361046586,-0.0,0.0" />
+		</box>
+		<box id="Wall_43" size="2,0.15,2.5" movable="false">
+			<body position="0.017018,0.909266,0" orientation="-179.95458429468897,0.0,0.0" />
+		</box>
+		<box id="Wall_44" size="2,0.15,2.5" movable="false">
+			<body position="-0.907245,-0.01647,0" orientation="-89.95437383553924,0.0,0.0" />
+		</box>
+		<box id="Wall_45" size="2,0.15,2.5" movable="false">
+			<body position="0.018491,-0.940733,0" orientation="0.04583662361046586,-0.0,0.0" />
+		</box>
+		<box id="Wall_46" size="8.20374,0.15,2.5" movable="false">
+			<body position="0.946697,-4.96687,0" orientation="-89.95437383553924,0.0,0.0" />
+		</box>
+		<box id="Wall_6" size="1,0.15,2.5" movable="false">
+			<body position="7.49277,-4.38474,0" orientation="0.04583662361046586,-0.0,0.0" />
+		</box>
+		<!--
+        The robot (add more later!).
+    -->
+    <distribute>
+      <position method="uniform" min="-0.25,-1,0" max="0.25,1,0"/>
+      <orientation method="constant" values="0,0,0"/>
+
+      <entity quantity="3" max_trials="100">
+
+        <kheperaiv id="kheperaiv_ros">
+          <controller config="kheperaiv_ros"/>
+        </kheperaiv>
+
+      </entity>
+    </distribute>
+  </arena>
+
+  <!-- ******************* -->
+  <!-- * Physics engines * -->
+  <!-- ******************* -->
+  <physics_engines>
+    <dynamics2d id="dyn2d"/>
+  </physics_engines>
+
+  <!-- ********* -->
+  <!-- * Media * -->
+  <!-- ********* -->
+  <media>
+    <range_and_bearing id="rab" />
+    <led id="leds"/>
+  </media>
+
+  <!-- ****************** -->
+  <!-- * Visualization * -->
+  <!-- ****************** -->
+  <visualization>
+    <qt-opengl lua_editor="false">
+      <camera>
+        <placements>
+          <placement index="0" position="5,-5, 70.34" look_at="5,-5,0" up="1,0,0" lens_focal_length="100" />
+        </placements>
+      </camera>
+    </qt-opengl>
+  </visualization>
+</argos-configuration>

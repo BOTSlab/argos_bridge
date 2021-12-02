@@ -16,7 +16,14 @@
 #include <argos3/plugins/robots/kheperaiv/control_interface/ci_kheperaiv_proximity_sensor.h>
 #include <argos3/plugins/robots/kheperaiv/control_interface/ci_kheperaiv_light_sensor.h>
 #include <argos3/plugins/robots/kheperaiv/control_interface/ci_kheperaiv_ultrasound_sensor.h>
+/* Definition of the kheperaiv lidar sensor */
 #include <argos3/plugins/robots/kheperaiv/control_interface/ci_kheperaiv_lidar_sensor.h>
+/* Definition of the kheperaiv measurements */
+#include <argos3/plugins/robots/kheperaiv/simulator/kheperaiv_measures.h>
+/* Definition of the range and bearing actuator */
+#include <argos3/plugins/robots/generic/control_interface/ci_range_and_bearing_actuator.h>
+/* Definition of the range and bearing sensor */
+#include <argos3/plugins/robots/generic/control_interface/ci_range_and_bearing_sensor.h>
 
 #include <ros/ros.h>
 #include <string>
@@ -67,6 +74,27 @@ public:
    * The callback method for getting new commanded speed on the cmd_vel topic.
    */
   void cmdVelCallback(const geometry_msgs::Twist& twist);
+  
+  /*
+   * publishes proximity messages
+   */
+  void publishProximity();
+
+  /*
+   * publishes line of sight info
+   */
+  void publishLineOfSight();
+
+  /*
+   * publishes lidar data
+   */
+  void publishLIDAR();
+
+  /*
+   * debugging output, you can enable or disable this in the argos config
+   */
+  void debug(bool debug);
+
 
 private:
   /* Pointer to the differential steering actuator */                                                                                                                      
@@ -75,7 +103,13 @@ private:
   CCI_DifferentialSteeringSensor* m_pcEncoder;                                                                                                                             
   /* Pointer to the Khepera IV proximity sensor */                                                                                                                         
   CCI_KheperaIVProximitySensor* m_pcProximity;
-  
+  /* Pointer to the range and bearing actuator */
+  CCI_RangeAndBearingActuator*  m_pcRABA;
+  /* Pointer to the range and bearing sensor */
+  CCI_RangeAndBearingSensor* m_pcRABS;
+  /* Pointer to the kheperaiv lidar sensor */
+  CCI_KheperaIVLIDARSensor* m_pcLIDAR;
+
   static constexpr Real HALF_BASELINE = 0.07f; // Half the distance between wheels
   static constexpr Real WHEEL_RADIUS = 0.029112741f;
 
@@ -91,6 +125,12 @@ private:
   
   // Proximity sensor publisher
   ros::Publisher proximityPub;
+
+  // Line of sight sensor publisher
+  ros::Publisher losPub; 
+  
+  // Laser scan publisher
+  ros::Publisher laserScanPub; 
 
   // Subscriber for cmd_vel (Twist message) topic.
   ros::Subscriber cmdVelSub;

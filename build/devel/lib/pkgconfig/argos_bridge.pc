@@ -1,0 +1,8 @@
+prefix=/home/peter/catkin_ws/src/argos_bridge/build/devel
+
+Name: argos_bridge
+Description: Description of argos_bridge
+Version: 0.0.0
+Cflags: -I/home/peter/catkin_ws/src/argos_bridge/build/devel/include
+Libs: -L${prefix}/lib 
+Requires: roscpp std_msgs message_runtime
