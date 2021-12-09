@@ -8,6 +8,12 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   message_generation
   roscpp
+  tf
+  geometry_msgs
+  nav_msgs
+  sensor_msgs
+  urdf
+  dynamic_reconfigure
 )
 
 ## System dependencies are found with CMake's conventions
@@ -106,7 +112,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES argos_bridge
-  CATKIN_DEPENDS roscpp std_msgs
+  CATKIN_DEPENDS roscpp std_msgs tf geometry_msgs nav_msgs sensor_msgs urdf dynamic_reconfigure
   DEPENDS message_runtime 
 )
 

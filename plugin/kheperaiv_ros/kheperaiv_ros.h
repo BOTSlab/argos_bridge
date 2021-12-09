@@ -25,10 +25,13 @@
 /* Definition of the range and bearing sensor */
 #include <argos3/plugins/robots/generic/control_interface/ci_range_and_bearing_sensor.h>
 
+#include <memory>
+#include <tf/transform_broadcaster.h>
 #include <ros/ros.h>
 #include <string>
 #include "geometry_msgs/Twist.h"
 #include "std_msgs/Bool.h"
+#include "math.h"
 
 using namespace argos;
 
@@ -84,6 +87,16 @@ public:
    * publishes line of sight info
    */
   void publishLineOfSight();
+  
+  /*
+   * removes chars from id string
+   */
+  char const* parse_id_number(const std::string data);
+
+  /*
+   * publishes odometry data collected by argos encoder sensor
+   */
+  void publishOdometry();
 
   /*
    * publishes lidar data
@@ -110,9 +123,6 @@ private:
   /* Pointer to the kheperaiv lidar sensor */
   CCI_KheperaIVLIDARSensor* m_pcLIDAR;
 
-  static constexpr Real HALF_BASELINE = 0.07f; // Half the distance between wheels
-  static constexpr Real WHEEL_RADIUS = 0.029112741f;
-
   /* Wheel speed */
   Real m_fWheelVelocity;
   /* Angle Tolerance range to go straight.
@@ -132,12 +142,26 @@ private:
   // Laser scan publisher
   ros::Publisher laserScanPub; 
 
+  // odometry publisher
+  ros::Publisher odomPub; 
+
   // Subscriber for cmd_vel (Twist message) topic.
   ros::Subscriber cmdVelSub;
 
-  // Subscriber for gripper (Bool message) topic.
-//  ros::Subscriber gripperSub;
+  /* physics info */
+  double timestep = 10.0/60.0; // time between updates in seconds
+  long sim_time;
+  double odom_x = 0.0;
+  double odom_y = 0.0;
+  double odom_yaw = 0.0;
+  double odom_dx;
+  double odom_dy;
+  double odom_w;
+  double odom_R;
+  double odom_Vr;
+  double odom_Vl;
 
+  double goStraightConstant = 0.00001;
 public:
   // We need only a single ROS node, although there are individual publishers
   // and subscribers for each instance of the class.
