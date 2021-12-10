@@ -17,8 +17,10 @@
 
 
 #include <iostream>
+#include <memory>
 #include <sstream>
 
+#include <tf/transform_broadcaster.h>
 #include <ros/callback_queue.h>
 
 using namespace std;
@@ -46,6 +48,7 @@ CKheperaIVRos::CKheperaIVRos() :
    m_pcRABS(NULL),
    m_pcLIDAR(NULL)
 {
+  odom_broadcaster = std::make_unique<tf::TransformBroadcaster>();
 }
 /****************************************/
 /****************************************/
@@ -67,7 +70,7 @@ void CKheperaIVRos::Init(TConfigurationNode& t_node) {
   
   // Create the subscribers
   stringstream cmdVelTopic;
-  cmdVelTopic << "/cmd_vel";
+  cmdVelTopic << GetId() << "/cmd_vel";
   cmdVelSub = nodeHandle->subscribe(cmdVelTopic.str(), 1, &CKheperaIVRos::cmdVelCallback, this);
 
 
@@ -82,12 +85,12 @@ void CKheperaIVRos::Init(TConfigurationNode& t_node) {
 }
 
 void CKheperaIVRos::ControlStep() {
+  time = ros::Time::now();
   this->publishLineOfSight();
   this->publishProximity();
   this->publishLIDAR();
   this->publishOdometry();
   this->debug(true);
-  sim_time += timestep;
   // Wait for any callbacks to be called.
   ros::getGlobalCallbackQueue()->callAvailable(ros::WallDuration(0.1));
 }
@@ -96,6 +99,7 @@ void CKheperaIVRos::debug(bool debug){
   if (!debug){
     return;
   }
+  RLOG << time.toSec() << std::endl;
   /* Print encoder values */
   RLOG << "Encoder values: "
     << "VL=" << m_pcEncoder->GetReading().VelocityLeftWheel << ", "
@@ -107,6 +111,9 @@ void CKheperaIVRos::debug(bool debug){
 
 void CKheperaIVRos::publishLIDAR(){
   sensor_msgs::LaserScan scan;
+  scan.header.stamp = time;
+  string frame = GetId() + "/base_footprint";
+  scan.header.frame_id = frame;
   scan.angle_min = -KHEPERAIV_LIDAR_ANGLE_SPAN.GetValue()* 0.5;
   scan.angle_max = KHEPERAIV_LIDAR_ANGLE_SPAN.GetValue() * 0.5;
   scan.angle_increment = KHEPERAIV_LIDAR_ANGLE_SPAN.GetValue() / m_pcLIDAR->GetNumReadings();
@@ -199,27 +206,28 @@ void CKheperaIVRos::publishOdometry(){
   /*
    * publish odom messages and TF transform
    */
- // geometry_msgs::Quaternion odom_quat = tf::createQuaternionMsgFromYaw(odom_yaw);
-  /*
+  string header_frame_id = GetId() + "/odom";
+  string child_frame_id = GetId() + "/base_footprint";
+  geometry_msgs::Quaternion odom_quat = tf::createQuaternionMsgFromYaw(odom_yaw);
+
   geometry_msgs::TransformStamped odom_trans;
-  //odom_trans.header.stamp = sim_time;
-  
-  odom_trans.header.frame_id = "odom";
-  odom_trans.child_frame_id = "base_link";
+  odom_trans.header.stamp = time;
+  odom_trans.header.frame_id = header_frame_id;
+  odom_trans.child_frame_id = child_frame_id;
   odom_trans.transform.translation.x = odom_x;
   odom_trans.transform.translation.y = odom_y;
   odom_trans.transform.translation.z = 0.0;
   odom_trans.transform.rotation = odom_quat;
-  odom_broadcaster.sendTransform(odom_trans);
-*/
+  odom_broadcaster->sendTransform(odom_trans);
+
   nav_msgs::Odometry odom;
-  //odom.header.stamp = sim_time;
-  odom.header.frame_id = "odom";
+  odom.header.stamp = time;
+  odom.header.frame_id = header_frame_id;
   odom.pose.pose.position.x = odom_x;
   odom.pose.pose.position.y = odom_y;
   odom.pose.pose.position.z = 0.0;
- // odom.pose.pose.orientation = odom_quat;
-  odom.child_frame_id = "base_link";
+  odom.pose.pose.orientation = odom_quat;
+  odom.child_frame_id = child_frame_id;
   odom.twist.twist.linear.x = odom_dx;
   odom.twist.twist.linear.y = odom_dy;
   odom.twist.twist.angular.z = odom_w;

@@ -25,7 +25,7 @@
 /* Definition of the range and bearing sensor */
 #include <argos3/plugins/robots/generic/control_interface/ci_range_and_bearing_sensor.h>
 
-#include <memory>
+#include <memory.h>
 #include <tf/transform_broadcaster.h>
 #include <ros/ros.h>
 #include <string>
@@ -148,9 +148,10 @@ private:
   // Subscriber for cmd_vel (Twist message) topic.
   ros::Subscriber cmdVelSub;
 
+  std::unique_ptr<tf::TransformBroadcaster> odom_broadcaster;
   /* physics info */
   double timestep = 10.0/60.0; // time between updates in seconds
-  long sim_time;
+  ros::Time time;
   double odom_x = 0.0;
   double odom_y = 0.0;
   double odom_yaw = 0.0;
