@@ -6,6 +6,8 @@
 #include "argos_bridge/losList.h"
 #include "sensor_msgs/LaserScan.h"
 #include "nav_msgs/Odometry.h"
+#include "rosgraph_msgs/Clock.h"
+
 /* Include the controller definition */
 #include "kheperaiv_ros.h"
 /* Function definitions for XML parsing */
@@ -85,7 +87,7 @@ void CKheperaIVRos::Init(TConfigurationNode& t_node) {
 }
 
 void CKheperaIVRos::ControlStep() {
-  time = ros::Time::now();
+  this->updateTime();
   this->publishLineOfSight();
   this->publishProximity();
   this->publishLIDAR();
@@ -107,6 +109,11 @@ void CKheperaIVRos::debug(bool debug){
     << "DL=" << m_pcEncoder->GetReading().CoveredDistanceLeftWheel << ", "
     << "DR=" << m_pcEncoder->GetReading().CoveredDistanceRightWheel
     << std::endl;
+}
+
+void CKheperaIVRos::updateTime(){
+  // updates rostime to sync all ros processes to argos clock
+
 }
 
 void CKheperaIVRos::publishLIDAR(){

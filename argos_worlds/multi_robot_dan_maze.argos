@@ -27,7 +27,7 @@
                show_rays="true"
                noise_level="0.1"/>
       </sensors>
-      <params alpha="7.5" delta="0.1" velocity="5" />
+      <params alpha="7.5" delta="0.1" velocity="5" ticks_per_second="10"/>
     </kheperaiv_ros_controller>
   </controllers>
 
