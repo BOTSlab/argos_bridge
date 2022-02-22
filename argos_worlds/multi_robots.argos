@@ -10,12 +10,11 @@
 
   <!-- *************** -->
   <!-- * Controllers * -->
-  <!-- *************** -->
+  <!-- *************** --> 
   <controllers>
-    <kheperaiv_ros_controller id="kheperaiv_ros" library="libkheperaiv_ros.so">
+    <kheperaiv_ros_controller id="kheperaiv_ros" library="libkheperaiv_ros">
       <actuators>
         <differential_steering implementation="default" />
-          <!-- <leds implementation="default" medium="leds" /> -->
         <range_and_bearing implementation="default" />
       </actuators>
       <sensors>
@@ -30,6 +29,12 @@
       <params alpha="7.5" delta="0.1" velocity="5" />
     </kheperaiv_ros_controller>
   </controllers>
+  
+  <!-- ****************** -->
+  <!-- * Loop functions * -->
+  <!-- ****************** -->
+  <loop_functions library="libloop_functions"
+                  label="loop_functions" />  
 
   <!-- *********************** -->
   <!-- * Arena configuration * -->

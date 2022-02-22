@@ -77,7 +77,12 @@ public:
    * The callback method for getting new commanded speed on the cmd_vel topic.
    */
   void cmdVelCallback(const geometry_msgs::Twist& twist);
-  
+
+  /*
+   * published on the clock topic to sync ros and argos
+   */
+  void updateTime();
+
   /*
    * publishes proximity messages
    */
@@ -144,6 +149,9 @@ private:
 
   // odometry publisher
   ros::Publisher odomPub; 
+
+  // clock publisher (needed to sync ros and argos)
+  ros::Publisher clockPub;
 
   // Subscriber for cmd_vel (Twist message) topic.
   ros::Subscriber cmdVelSub;

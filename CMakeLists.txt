@@ -6,6 +6,7 @@ project(argos_bridge)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   std_msgs
+  rosgraph_msgs
   message_generation
   roscpp
   tf
@@ -112,7 +113,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES argos_bridge
-  CATKIN_DEPENDS roscpp std_msgs tf geometry_msgs nav_msgs sensor_msgs urdf dynamic_reconfigure
+  CATKIN_DEPENDS roscpp std_msgs tf geometry_msgs nav_msgs sensor_msgs urdf dynamic_reconfigure rosgraph_msgs
   DEPENDS message_runtime 
 )
 
