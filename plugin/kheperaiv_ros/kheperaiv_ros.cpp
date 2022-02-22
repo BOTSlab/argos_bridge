@@ -22,6 +22,7 @@
 
 #include <tf/transform_broadcaster.h>
 #include <ros/callback_queue.h>
+#include <std_msgs/String.h>
 
 using namespace std;
 using namespace argos_bridge;
@@ -144,9 +145,17 @@ void CKheperaIVRos::publishLineOfSight(){
   loslist.n = packets.size();
   for(size_t i = 0; i < packets.size(); ++i){
     los losmsg;
-    const unsigned char *data = packets[i].Data.ToCArray();
-    std::string s( reinterpret_cast<char const*>(data), packets[i].Data.Size());
-    losmsg.robotName = s;
+
+    // I believe the packets are encoded in a non ASCII format.
+    // Therefore, when converting to a string, we still see crazy characters.
+    // Question: Where is the data from m_pcRABS->GetReadings() comming from? 
+
+    // argos::CByteArray packets[i]
+    // Docs: https://www.argos-sim.info/api/a02302.php
+
+    const unsigned char* data = packets[i].Data.ToCArray();
+    std::string s(reinterpret_cast<const char*>(data), packets[i].Data.Size());
+    losmsg.robotName.data = s;
     loslist.robots.push_back(losmsg);
   }
   losPub.publish(loslist);

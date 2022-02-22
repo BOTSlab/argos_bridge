@@ -57,12 +57,27 @@
 
       <entity quantity="1" max_trials="100">
 
-        <kheperaiv id="kheperaiv_ros">
+        <kheperaiv id="kheperaiv_ros_1">
           <controller config="kheperaiv_ros"/>
         </kheperaiv>
 
       </entity>
     </distribute>
+  
+    <distribute>
+      <position method="uniform" min="-0.25,-1,0" max="0.25,1,0"/>
+      <orientation method="constant" values="0,0,0"/>
+
+      <entity quantity="1" max_trials="100">
+
+        <kheperaiv id="kheperaiv_ros_2">
+          <controller config="kheperaiv_ros"/>
+        </kheperaiv>
+
+      </entity>
+    </distribute>
+
+
   </arena>
 
   <!-- ******************* -->
