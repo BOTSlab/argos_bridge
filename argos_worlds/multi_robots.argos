@@ -62,7 +62,7 @@
 
       <entity quantity="1" max_trials="100">
 
-        <kheperaiv id="kheperaiv_ros_1">
+        <kheperaiv id="robot_1">
           <controller config="kheperaiv_ros"/>
         </kheperaiv>
 
@@ -75,7 +75,33 @@
 
       <entity quantity="1" max_trials="100">
 
-        <kheperaiv id="kheperaiv_ros_2">
+        <kheperaiv id="robot_2">
+          <controller config="kheperaiv_ros"/>
+        </kheperaiv>
+
+      </entity>
+    </distribute>
+
+    <distribute>
+      <position method="uniform" min="-0.5,-1,0" max="0.25,1,0"/>
+      <orientation method="constant" values="0,0,0"/>
+
+      <entity quantity="1" max_trials="100">
+
+        <kheperaiv id="robot_3">
+          <controller config="kheperaiv_ros"/>
+        </kheperaiv>
+
+      </entity>
+    </distribute>
+
+    <distribute>
+      <position method="uniform" min="0.2,-0.5,0" max="0.25,1,0"/>
+      <orientation method="constant" values="0,0,0"/>
+
+      <entity quantity="1" max_trials="100">
+
+        <kheperaiv id="robot_4">
           <controller config="kheperaiv_ros"/>
         </kheperaiv>
 
