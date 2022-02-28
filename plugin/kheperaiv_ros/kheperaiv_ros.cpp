@@ -17,7 +17,6 @@
 /* Logging */
 #include <argos3/core/utility/logging/argos_log.h>
 
-
 #include <iostream>
 #include <memory>
 #include <sstream>
@@ -140,11 +139,14 @@ void CKheperaIVRos::publishLIDAR(){
 
 void CKheperaIVRos::publishLineOfSight(){
   // broadcast current robot to all LOS
-  char const *c = parse_id_number(GetId());
-  for(int i=0;i<10;i++){
-    int offset = -1*i+(10);
-    m_pcRABA->SetData(i, c[GetId().length()-offset]);
+  int numBytesToSend = 10;
+  std::string id = GetId();
+  uint8_t* idAsUint = reinterpret_cast<uint8_t*>(const_cast<char*>(id.c_str()));
+  if (id.length() < numBytesToSend) {
+    numBytesToSend = id.length();
   }
+  CByteArray buff = CByteArray(idAsUint, numBytesToSend);
+  m_pcRABA->SetData(buff);
 
   // write all robot names within los to rosmsg
   const CCI_RangeAndBearingSensor::TReadings& packets = m_pcRABS->GetReadings();
@@ -162,7 +164,7 @@ void CKheperaIVRos::publishLineOfSight(){
 
     const unsigned char* data = packets[i].Data.ToCArray();
     std::string s(reinterpret_cast<const char*>(data), packets[i].Data.Size());
-    losmsg.robotName.data = s;
+    losmsg.robotName = s;
     loslist.robots.push_back(losmsg);
   }
   losPub.publish(loslist);
