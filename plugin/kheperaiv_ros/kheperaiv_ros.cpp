@@ -75,7 +75,8 @@ void CKheperaIVRos::Init(TConfigurationNode& t_node) {
   cmdVelTopic << GetId() << "/cmd_vel";
   cmdVelSub = nodeHandle->subscribe(cmdVelTopic.str(), 1, &CKheperaIVRos::cmdVelCallback, this);
 
-
+  // time
+  time = ros::Time(0.0);
 
   // Get sensor/actuator handles
    m_pcWheels    = GetActuator<CCI_DifferentialSteeringActuator>("differential_steering");
@@ -106,14 +107,14 @@ void CKheperaIVRos::debug(bool debug){
   RLOG << "Encoder values: "
     << "VL=" << m_pcEncoder->GetReading().VelocityLeftWheel << ", "
     << "VR=" << m_pcEncoder->GetReading().VelocityRightWheel << ", "
-    << "DL=" << m_pcEncoder->GetReading().CoveredDistanceLeftWheel << ", "
-    << "DR=" << m_pcEncoder->GetReading().CoveredDistanceRightWheel
+//    << "DL=" << m_pcEncoder->GetReading().CoveredDistanceLeftWheel << ", "
+//    << "DR=" << m_pcEncoder->GetReading().CoveredDistanceRightWheel
     << std::endl;
 }
 
 void CKheperaIVRos::updateTime(){
   // updates rostime to sync all ros processes to argos clock
-
+  time += ros::Duration(timestep);
 }
 
 void CKheperaIVRos::publishLIDAR(){
@@ -124,8 +125,8 @@ void CKheperaIVRos::publishLIDAR(){
   scan.angle_min = -KHEPERAIV_LIDAR_ANGLE_SPAN.GetValue()* 0.5;
   scan.angle_max = KHEPERAIV_LIDAR_ANGLE_SPAN.GetValue() * 0.5;
   scan.angle_increment = KHEPERAIV_LIDAR_ANGLE_SPAN.GetValue() / m_pcLIDAR->GetNumReadings();
-  scan.time_increment = 1.0/10.0;
-  scan.scan_time = 1.0/10.0;
+  scan.time_increment = timestep;
+  scan.scan_time = timestep;
   scan.range_min = KHEPERAIV_LIDAR_SENSORS_FAN_RADIUS + KHEPERAIV_LIDAR_SENSORS_RING_RANGE.GetMin();
   scan.range_max = KHEPERAIV_LIDAR_SENSORS_FAN_RADIUS + KHEPERAIV_LIDAR_SENSORS_RING_RANGE.GetMax();
 

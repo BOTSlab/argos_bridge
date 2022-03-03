@@ -25,6 +25,7 @@ class CClockLoopFunction : public CLoopFunctions {
     static ros::NodeHandle* nodeHandle;
     ros::Publisher clockPub;
     ros::Time clock;
+    float timestep = 0.01;
 };
 
 #endif

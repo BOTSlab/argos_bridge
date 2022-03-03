@@ -12,7 +12,7 @@
   <!-- * Controllers * -->
   <!-- *************** -->
   <controllers>
-    <argos_ros_bot_controller id="argos_ros_bot" library="libargos_ros_bot.so">
+    <argos_ros_bot_controller id="kheperaiv_ros" library="libargos_ros_bot.so">
       <actuators>
         <differential_steering implementation="default"/>
         <!-- TBD: Implement the gripper functionality within the ROS plugin -->
