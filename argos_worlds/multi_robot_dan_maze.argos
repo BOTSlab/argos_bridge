@@ -12,10 +12,9 @@
   <!-- * Controllers * -->
   <!-- *************** -->
   <controllers>
-    <kheperaiv_ros_controller id="kheperaiv_ros" library="libkheperaiv_ros.so">
+    <kheperaiv_ros_controller id="robot_" library="libkheperaiv_ros.so">
       <actuators>
         <differential_steering implementation="default" />
-          <!-- <leds implementation="default" medium="leds" /> -->
         <range_and_bearing implementation="default" />
       </actuators>
       <sensors>
@@ -30,6 +29,12 @@
       <params alpha="7.5" delta="0.1" velocity="5" ticks_per_second="10"/>
     </kheperaiv_ros_controller>
   </controllers>
+
+  <!-- ****************** -->
+  <!-- * Loop functions * -->
+  <!-- ****************** -->
+  <loop_functions library="libclock_loop_functions"
+                  label="clock_loop_functions" />
 
   <!-- *********************** -->
   <!-- * Arena configuration * -->
@@ -120,10 +125,10 @@
       <position method="uniform" min="-0.25,-1,0" max="0.25,1,0"/>
       <orientation method="constant" values="0,0,0"/>
 
-      <entity quantity="3" max_trials="100">
+      <entity quantity="1" max_trials="100">
 
-        <kheperaiv id="kheperaiv_ros">
-          <controller config="kheperaiv_ros"/>
+        <kheperaiv id="robot_">
+          <controller config="robot_"/>
         </kheperaiv>
 
       </entity>

@@ -179,36 +179,33 @@ void CKheperaIVRos::publishProximity(){
 }
 
 void CKheperaIVRos::publishOdometry(){
-  odom_Vl = m_pcEncoder->GetReading().VelocityLeftWheel;
-  odom_Vr = m_pcEncoder->GetReading().VelocityRightWheel;
-  odom_w = (odom_Vr - odom_Vl)/2*KHEPERAIV_BASE_RADIUS;
+  odom_Vl = m_pcEncoder->GetReading().VelocityLeftWheel / 100.0f;
+  odom_Vr = m_pcEncoder->GetReading().VelocityRightWheel / 100.0f;
 
   /*
    * Update forward kinematic model of differental drive robot.
    */
-  
-  if (abs(odom_w) < goStraightConstant*2*KHEPERAIV_BASE_RADIUS){
-    // R is infinte so manually set x,y translations to drive straight
+  if(abs(odom_Vr - odom_Vl) < goStraightConstant){
+    // Vl = Vr # drive in a straight line
     odom_w = 0.0;
-    odom_x += ((odom_Vl + odom_Vr)/2)*cos(odom_yaw)*timestep;
-    odom_dx = ((odom_Vl + odom_Vr)/2)*cos(odom_yaw);  
-    odom_y += ((odom_Vl + odom_Vr)/2)*sin(odom_yaw)*timestep; 
-    odom_dy = ((odom_Vl + odom_Vr)/2)*sin(odom_yaw);  
-  }else if ((odom_Vr - odom_Vl) < goStraightConstant){
-    // R is zero so manually set the yaw translation to drive in a circle
-    odom_yaw += ((odom_Vl+odom_Vr)*timestep)/KHEPERAIV_BASE_RADIUS;
-    odom_dx = 0.0;
-    odom_dy = 0.0;
+    odom_x += ((odom_Vl + odom_Vr)/2) * cos(odom_yaw)*timestep;
+    odom_y += ((odom_Vl + odom_Vr)/2) * sin(odom_yaw)*timestep;
+    odom_dx = ((odom_Vl + odom_Vr)/2) * cos(odom_yaw);
+    odom_dy = ((odom_Vl + odom_Vr)/2) * sin(odom_yaw);
   }else{
-    // set x,y and yaw as normal
-    double R = KHEPERAIV_BASE_RADIUS *((odom_Vr + odom_Vl)/(odom_Vr - odom_Vl));
-    double ICCx = odom_x -  R*sin(odom_yaw);
-    double ICCy = odom_y +  R*cos(odom_yaw);
-    odom_x += cos(odom_w*timestep)*(odom_x - ICCx) - sin(odom_w*timestep)*(odom_y - ICCy) + ICCx;
-    odom_dx = (cos(odom_w*timestep)*(odom_x - ICCx) - sin(odom_w*timestep)*(odom_y - ICCy) + ICCx)/timestep;
-    odom_y += sin(odom_w*timestep)*(odom_x - ICCx) + cos(odom_w*timestep)*(odom_y - ICCy) + ICCy;
-    odom_dy = (sin(odom_w*timestep)*(odom_x - ICCx) + cos(odom_w*timestep)*(odom_y - ICCy) + ICCy)/timestep;
-    odom_yaw += odom_w*timestep;
+      double R = (KHEPERAIV_BASE_RADIUS / 100.0f) * ((odom_Vl + odom_Vr) / (odom_Vr - odom_Vl));
+      if(abs(odom_Vl + odom_Vr) < goStraightConstant){
+        // Vl = - Vr # drive in a circle
+        double R = 0.0;
+      }
+       odom_w = (odom_Vr - odom_Vl)/2* (KHEPERAIV_BASE_RADIUS/ 100.0f);
+       double ICCx = odom_x - R*sin(odom_yaw);
+       double ICCy = odom_y + R*cos(odom_yaw);
+       odom_x  = (odom_x - ICCx) * cos(odom_w * timestep) - (odom_y - ICCy) * sin(odom_w * timestep) + ICCx;
+       odom_dx = ((odom_x - ICCx) * cos(odom_w * timestep) - (odom_y - ICCy) * sin(odom_w * timestep) + ICCx) / timestep;
+       odom_y  = (odom_x - ICCx) * sin(odom_w * timestep) + (odom_y - ICCy) * cos(odom_w * timestep) + ICCy;
+       odom_dy = ((odom_x - ICCx) * sin(odom_w * timestep) + (odom_y - ICCy) * cos(odom_w * timestep) + ICCy) / timestep;
+       odom_yaw += odom_w * timestep;
   }
 
   /*
@@ -244,18 +241,21 @@ void CKheperaIVRos::publishOdometry(){
 }
 
 void CKheperaIVRos::cmdVelCallback(const geometry_msgs::Twist& twist) {
-  RLOG << "cmdVelCallback: " << GetId() << endl;
-
-  Real v = twist.linear.x;  // Forward speed
-  Real w = twist.angular.z; // Rotational speed
-  if (abs(w) < goStraightConstant*2*KHEPERAIV_BASE_RADIUS){
+  Real v = twist.linear.x * 100.0f;  // Forward speed
+  Real w = twist.angular.z * 100.0f; // Rotational speed
+  if (abs(w) < goStraightConstant){
     w = 0.0;
   }
   // Use the kinematics of a differential-drive robot to derive the left
   // and right wheel speeds.
-  leftSpeed = (v - KHEPERAIV_BASE_RADIUS * w) / KHEPERAIV_WHEEL_RADIUS;
-  rightSpeed = (v + KHEPERAIV_BASE_RADIUS * w) / KHEPERAIV_WHEEL_RADIUS;
+  leftSpeed = v - KHEPERAIV_BASE_RADIUS * w;
+  rightSpeed = v + KHEPERAIV_BASE_RADIUS * w;
   m_pcWheels->SetLinearVelocity(leftSpeed, rightSpeed);
+
+  std::cout << "input" << std::endl;
+  std::cout << "W " << w << " | Linear " << v << std::endl;
+  std::cout << "LSpeed " << leftSpeed << std::endl;
+  std::cout << "RSpeed " << rightSpeed << std::endl;
 }
 
 /*
